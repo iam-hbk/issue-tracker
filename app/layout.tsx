@@ -1,11 +1,15 @@
 import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
+import "./theme-config.css";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import Navbar from "./Navbar";
+import { Theme, ThemePanel } from "@radix-ui/themes";
 
-const inter = Inter({ subsets: ["latin"] });
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  variable: "--font-urbanist",
+});
 
 export const metadata: Metadata = {
   title: "Issues Tracker",
@@ -19,8 +23,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Theme>
+      <body className={urbanist.variable}>
+        <Theme appearance="light" accentColor="crimson" radius="large">
           <Navbar />
           <main className="p-4">{children}</main>
         </Theme>
