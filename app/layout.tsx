@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urbanist.variable}>
-        <Theme appearance="light" accentColor="crimson" radius="large">
+        <Theme appearance="light" accentColor="indigo" radius="large">
           <Navbar />
           <main className="p-4">{children}</main>
           <Toaster richColors position="top-right" />
