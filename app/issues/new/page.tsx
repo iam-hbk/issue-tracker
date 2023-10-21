@@ -31,6 +31,21 @@ const NewIssuePage = () => {
   const [error, setError] = useState<string>();
   const router = useRouter();
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await createIssue(data);
+      toast.success("Issue submitted successfuly !");
+      router.push("/issues");
+    } catch (error: unknown) {
+      let error_ = error as AxiosError;
+      if (error_.isAxiosError) {
+        console.log(error_.response?.data);
+      }
+      toast.error(`something went wrong ! ${(error as AxiosError).message}`);
+      setError(error_.message);
+    }
+  });
+
   return (
     <div className="max-w-xl">
       {!!error ? (
@@ -44,25 +59,7 @@ const NewIssuePage = () => {
           </Callout.Text>
         </Callout.Root>
       ) : null}
-      <form
-        className="space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            await createIssue(data);
-            toast.success("Issue submitted successfuly !");
-            router.push("/issues");
-          } catch (error: unknown) {
-            let error_ = error as AxiosError;
-            if (error_.isAxiosError) {
-              console.log(error_.response?.data);
-            }
-            toast.error(
-              `something went wrong ! ${(error as AxiosError).message}`
-            );
-            setError(error_.message);
-          }
-        })}
-      >
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input {...register("title")} placeholder="Title" />
         </TextField.Root>
