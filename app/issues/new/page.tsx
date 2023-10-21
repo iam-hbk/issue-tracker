@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinners from "@/app/components/Spinners";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -75,7 +76,7 @@ const NewIssuePage = () => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button type="submit" disabled={isSubmitting}>
-          Submit New Issue
+          Submit New Issue {isSubmitting && <Spinners />}
         </Button>
       </form>
     </div>
